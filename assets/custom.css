@@ -1407,6 +1407,7 @@ header .menu-drawer {
   gap: 10px;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
 }
 
 .assisstance_buttons_image_container img {
