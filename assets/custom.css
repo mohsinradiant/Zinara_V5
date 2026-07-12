@@ -765,7 +765,7 @@ product-info variant-selects img {
   line-height: 1;
 }
 
-product-form .product-form__buttons button:first-of-type {
+product-form .product-form__buttons .button--secondary {
   border: solid 1px #712242;
   color: #712242;
 }
