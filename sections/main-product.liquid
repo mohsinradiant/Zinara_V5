@@ -119,6 +119,14 @@
                     show_badges: false,
                     price_class: 'price--large'
                   -%}
+                  {%- assign features_badges_block = section.blocks | where: 'type', 'product-features-badges' | first -%}
+                  {%- if features_badges_block -%}
+                    <div class="product-features-badges-container">
+                      {% for badge in product.metafields.content['product-features-badges'].value %}
+                        <p class="product-features-badge-text">{{ badge }}</p>
+                      {% endfor %}
+                    </div>
+                  {%- endif -%}
                   {% comment %}
                     <div class="price-breakdown-container">
                       <span>Price Breakdown</span>
@@ -937,11 +945,7 @@
               {%- when 'icon-with-text' -%}
                 {% render 'icon-with-text', block: block %}
               {%- when 'product-features-badges' -%}
-                <div class="product-features-badges-container">
-                  {% for badge in product.metafields.content['product-features-badges'].value %}
-                    <p class="product-features-badge-text">{{ badge }}</p>
-                  {% endfor %}
-                </div>
+                {%- comment -%}Rendered inline with the price block above{%- endcomment -%}
               {%- when 'brand-usps' -%}
                 {% if product.tags contains 'gold' %}
                   <div class="pdp-brand-usps-container">
