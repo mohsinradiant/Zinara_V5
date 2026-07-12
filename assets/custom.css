@@ -1013,7 +1013,9 @@ body.no-scroll {
 .product__info-container-price-container {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: start;
+  flex-wrap: wrap;
+  row-gap: 8px;
 }
 
 .price-breakdown-container {
