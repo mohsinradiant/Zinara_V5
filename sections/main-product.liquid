@@ -119,7 +119,10 @@
                     show_badges: false,
                     price_class: 'price--large'
                   -%}
-                  {%- assign features_badges_block = section.blocks | where: 'type', 'product-features-badges' | first -%}
+                  {%- assign features_badges_block = section.blocks
+                    | where: 'type', 'product-features-badges'
+                    | first
+                  -%}
                   {%- if features_badges_block -%}
                     <div class="product-features-badges-container">
                       {% for badge in product.metafields.content['product-features-badges'].value %}
@@ -1495,7 +1498,7 @@
               //   order: 3;
               // }
               .product__info-container .product-features-badges-container {
-                margin-top: 6px;
+                margin-top: 0;
                 margin-bottom: 6px;
               }
               .product__info-container .product__description-container {
