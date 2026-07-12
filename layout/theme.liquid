@@ -1,11 +1,11 @@
 <!doctype html>
 <html class="js" lang="{{ request.locale.iso_code }}">
   <head>
-<!-- Gokwik theme code start -->
-<link rel="dns-prefetch" href="https://pdp.gokwik.co/">
-<link rel="dns-prefetch" href="https://api.gokwik.co">
-{% render 'gokwik' %}
-<!-- Gokwik theme code End -->
+    <!-- Gokwik theme code start -->
+    <link rel="dns-prefetch" href="https://pdp.gokwik.co/">
+    <link rel="dns-prefetch" href="https://api.gokwik.co">
+    {% render 'gokwik' %}
+    <!-- Gokwik theme code End -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -487,47 +487,47 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
     <style>
       #sy-whatshelp {
-          right: 25px;
-          bottom: 90px;
-          position: fixed;
-          z-index: 9999;
+        right: 25px;
+        bottom: 90px;
+        position: fixed;
+        z-index: 9999;
       }
 
       #sy-whatshelp a.sywh-open-services {
-          background-color: #25d366;
-          color: #fff;
-          margin-top: 10px;
-          border: none;
-          cursor: pointer;
-          width: 50px;
-          height: 50px;
-          box-shadow: 2px 2px 8px -3px #000;
-          border-radius: 100%;
-          -webkit-border-radius: 100%;
-          -moz-border-radius: 100%;
-          -ms-border-radius: 100%;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          text-decoration: none;
+        background-color: #25d366;
+        color: #fff;
+        margin-top: 10px;
+        border: none;
+        cursor: pointer;
+        width: 50px;
+        height: 50px;
+        box-shadow: 2px 2px 8px -3px #000;
+        border-radius: 100%;
+        -webkit-border-radius: 100%;
+        -moz-border-radius: 100%;
+        -ms-border-radius: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
       }
       #sy-whatshelp a.sywh-open-services:hover,
       #sy-whatshelp a.sywh-open-services:focus,
       #sy-whatshelp a.sywh-open-services:active {
-          text-decoration: none;
+        text-decoration: none;
       }
 
       #sy-whatshelp a.sywh-open-services .fa-whatsapp {
-          font-size: 33px;
-          line-height: 1;
-          width: auto;
-          min-width: 0;
-          max-width: none;
+        font-size: 33px;
+        line-height: 1;
+        width: auto;
+        min-width: 0;
+        max-width: none;
       }
       #sy-whatshelp a.sywh-open-services .fa-whatsapp:before {
-          width: auto;
-          min-width: 0;
-          max-width: none;
+        width: auto;
+        min-width: 0;
+        max-width: none;
       }
     </style>
   </head>
@@ -602,13 +602,15 @@
           </button>
           <div id="tryAtHomeRes_2" class="try-at-home-pincode-result"></div>
           <div id="tryAtHomeButtons_2" class="try-at-home-buttons" style="display: none;">
-            <button
-              id="homeTrialBtn_2"
-              type="button"
-              class="try-at-home-trial-button home-trial-button"
-            >
-              Home Trial
-            </button>
+            {% comment %}
+              <button
+                id="homeTrialBtn_2"
+                type="button"
+                class="try-at-home-trial-button home-trial-button"
+              >
+                Home Trial
+              </button>
+            {% endcomment %}
             <button
               id="videoTrialBtn_2"
               type="button"
@@ -1206,26 +1208,106 @@ function getProductPagePincodes() {
                 </tr>
               </thead>
               <tbody>
-                <tr><td>8</td><td>48.1</td><td>15</td></tr>
-                <tr><td>9</td><td>49.0</td><td>15.4</td></tr>
-                <tr><td>10</td><td>50.0</td><td>15.7</td></tr>
-                <tr><td>11</td><td>50.9</td><td>16</td></tr>
-                <tr><td>12</td><td>51.8</td><td>16.4</td></tr>
-                <tr><td>13</td><td>52.8</td><td>16.7</td></tr>
-                <tr><td>14</td><td>54.0</td><td>17.1</td></tr>
-                <tr><td>15</td><td>55.0</td><td>17.4</td></tr>
-                <tr><td>16</td><td>55.9</td><td>17.8</td></tr>
-                <tr><td>17</td><td>56.9</td><td>18</td></tr>
-                <tr><td>18</td><td>57.8</td><td>18.4</td></tr>
-                <tr><td>19</td><td>59.1</td><td>18.7</td></tr>
-                <tr><td>20</td><td>60.0</td><td>19</td></tr>
-                <tr><td>21</td><td>60.9</td><td>19.3</td></tr>
-                <tr><td>22</td><td>61.9</td><td>19.7</td></tr>
-                <tr><td>23</td><td>62.8</td><td>20</td></tr>
-                <tr><td>24</td><td>63.8</td><td>20.3</td></tr>
-                <tr><td>25</td><td>64.7</td><td>20.6</td></tr>
-                <tr><td>26</td><td>66.0</td><td>20.9</td></tr>
-                <tr><td>27</td><td>66.9</td><td>21.2</td></tr>
+                <tr>
+                  <td>8</td>
+                  <td>48.1</td>
+                  <td>15</td>
+                </tr>
+                <tr>
+                  <td>9</td>
+                  <td>49.0</td>
+                  <td>15.4</td>
+                </tr>
+                <tr>
+                  <td>10</td>
+                  <td>50.0</td>
+                  <td>15.7</td>
+                </tr>
+                <tr>
+                  <td>11</td>
+                  <td>50.9</td>
+                  <td>16</td>
+                </tr>
+                <tr>
+                  <td>12</td>
+                  <td>51.8</td>
+                  <td>16.4</td>
+                </tr>
+                <tr>
+                  <td>13</td>
+                  <td>52.8</td>
+                  <td>16.7</td>
+                </tr>
+                <tr>
+                  <td>14</td>
+                  <td>54.0</td>
+                  <td>17.1</td>
+                </tr>
+                <tr>
+                  <td>15</td>
+                  <td>55.0</td>
+                  <td>17.4</td>
+                </tr>
+                <tr>
+                  <td>16</td>
+                  <td>55.9</td>
+                  <td>17.8</td>
+                </tr>
+                <tr>
+                  <td>17</td>
+                  <td>56.9</td>
+                  <td>18</td>
+                </tr>
+                <tr>
+                  <td>18</td>
+                  <td>57.8</td>
+                  <td>18.4</td>
+                </tr>
+                <tr>
+                  <td>19</td>
+                  <td>59.1</td>
+                  <td>18.7</td>
+                </tr>
+                <tr>
+                  <td>20</td>
+                  <td>60.0</td>
+                  <td>19</td>
+                </tr>
+                <tr>
+                  <td>21</td>
+                  <td>60.9</td>
+                  <td>19.3</td>
+                </tr>
+                <tr>
+                  <td>22</td>
+                  <td>61.9</td>
+                  <td>19.7</td>
+                </tr>
+                <tr>
+                  <td>23</td>
+                  <td>62.8</td>
+                  <td>20</td>
+                </tr>
+                <tr>
+                  <td>24</td>
+                  <td>63.8</td>
+                  <td>20.3</td>
+                </tr>
+                <tr>
+                  <td>25</td>
+                  <td>64.7</td>
+                  <td>20.6</td>
+                </tr>
+                <tr>
+                  <td>26</td>
+                  <td>66.0</td>
+                  <td>20.9</td>
+                </tr>
+                <tr>
+                  <td>27</td>
+                  <td>66.9</td>
+                  <td>21.2</td>
+                </tr>
               </tbody>
             </table>
           </div>
@@ -1773,19 +1855,20 @@ function getProductPagePincodes() {
     </style>
 
     {% comment %} Whatsapp Floater {% endcomment %}
-    {% comment %} <script
-      type="text/javascript"
-      src="https://d3mkw6s8thqya7.cloudfront.net/integration-plugin.js"
-      id="aisensy-wa-widget"
-      widget-id="aaaer2"
-    ></script>
-    <style>
-      #df-btn-cont .df-btn {
-        bottom: 90px !important;
-        z-index: 2 !important;
-      }
-    </style>
- {% endcomment %}
+    {% comment %}
+      <script
+        type="text/javascript"
+        src="https://d3mkw6s8thqya7.cloudfront.net/integration-plugin.js"
+        id="aisensy-wa-widget"
+        widget-id="aaaer2"
+      ></script>
+      <style>
+        #df-btn-cont .df-btn {
+          bottom: 90px !important;
+          z-index: 2 !important;
+        }
+      </style>
+    {% endcomment %}
     <!-- Size Chart Bottom Sheet Styles -->
     <style>
       .size-chart-overlay {
@@ -2009,10 +2092,15 @@ function getProductPagePincodes() {
       }
     </style>
     <div id="sy-whatshelp">
-        <a href="https://api.whatsapp.com/send?phone=919217975782&text=Hi" target="_blank" class="sywh-open-services " data-html="true" data-placement="left">
-          <i class="fab fa-whatsapp"></i>
-         </a>        
-</div>
-
+      <a
+        href="https://api.whatsapp.com/send?phone=919217975782&text=Hi"
+        target="_blank"
+        class="sywh-open-services "
+        data-html="true"
+        data-placement="left"
+      >
+        <i class="fab fa-whatsapp"></i>
+      </a>
+    </div>
   </body>
 </html>
