@@ -205,119 +205,121 @@
                 <script>
                   (function () {
                     function initPriceBreakdown() {
-                    const container = document.querySelector('.price-breakdown-container');
-                    const popup = document.querySelector('.price-breakdown-popup');
-                    const closeBtn = document.querySelector('.price-breakdown-close-btn');
-                    const overlay = document.getElementById('overlay');
-                    if (!container || !popup) return;
+                      const container = document.querySelector('.price-breakdown-container');
+                      const popup = document.querySelector('.price-breakdown-popup');
+                      const closeBtn = document.querySelector('.price-breakdown-close-btn');
+                      const overlay = document.getElementById('overlay');
+                      if (!container || !popup) return;
 
-                    function extractPopupData() {
-                      const items = [];
-                      const listItems = popup.querySelectorAll(
-                        '.price-breakdown-list > li:not(.price-breakdown-total):not(:last-child)'
-                      );
+                      function extractPopupData() {
+                        const items = [];
+                        const listItems = popup.querySelectorAll(
+                          '.price-breakdown-list > li:not(.price-breakdown-total):not(:last-child)'
+                        );
 
-                      listItems.forEach((li) => {
-                        const title =
-                          li.querySelector('.price_breakdown-left_container_top span')?.innerText.trim() || '';
-                        const discount = li.querySelector('.price_discount')?.innerText.trim() || null;
-                        const subtitle1 =
-                          li.querySelector('.price_breakdown-left_container_bottom p:nth-child(1)')?.innerText.trim() ||
-                          '';
-                        const subtitle2 =
-                          li.querySelector('.price_breakdown-left_container_bottom p:nth-child(2)')?.innerText.trim() ||
-                          '';
-                        const sellingPrice =
-                          li.querySelector('.price_breakdown-right_container span:nth-child(1)')?.innerText.trim() ||
-                          '';
-                        const compareAtPrice =
-                          li.querySelector('.price_breakdown_compare_at_price')?.innerText.trim() || null;
+                        listItems.forEach((li) => {
+                          const title =
+                            li.querySelector('.price_breakdown-left_container_top span')?.innerText.trim() || '';
+                          const discount = li.querySelector('.price_discount')?.innerText.trim() || null;
+                          const subtitle1 =
+                            li
+                              .querySelector('.price_breakdown-left_container_bottom p:nth-child(1)')
+                              ?.innerText.trim() || '';
+                          const subtitle2 =
+                            li
+                              .querySelector('.price_breakdown-left_container_bottom p:nth-child(2)')
+                              ?.innerText.trim() || '';
+                          const sellingPrice =
+                            li.querySelector('.price_breakdown-right_container span:nth-child(1)')?.innerText.trim() ||
+                            '';
+                          const compareAtPrice =
+                            li.querySelector('.price_breakdown_compare_at_price')?.innerText.trim() || null;
 
-                        items.push({
-                          title,
-                          discount,
-                          subtitle_1: subtitle1,
-                          subtitle_2: subtitle2,
-                          selling_price: sellingPrice,
-                          compare_at_price: compareAtPrice,
+                          items.push({
+                            title,
+                            discount,
+                            subtitle_1: subtitle1,
+                            subtitle_2: subtitle2,
+                            selling_price: sellingPrice,
+                            compare_at_price: compareAtPrice,
+                          });
                         });
-                      });
 
-                      const totalCost =
-                        popup.querySelector('.price-breakdown-total span:nth-child(2)')?.innerText.trim() || '';
+                        const totalCost =
+                          popup.querySelector('.price-breakdown-total span:nth-child(2)')?.innerText.trim() || '';
 
-                      return { items, total_cost: totalCost };
-                    }
+                        return { items, total_cost: totalCost };
+                      }
 
-                    function flattenItems(items) {
-                      return items.reduce((acc, item, index) => {
-                        const i = index + 1;
-                        acc[`item_${i}_title`] = item.title;
-                        acc[`item_${i}_selling_price`] = item.selling_price;
-                        acc[`item_${i}_compare_at_price`] = item.compare_at_price;
-                        acc[`item_${i}_subtitle_1`] = item.subtitle_1;
-                        acc[`item_${i}_subtitle_2`] = item.subtitle_2;
-                        acc[`item_${i}_discount`] = item.discount;
-                        return acc;
-                      }, {});
-                    }
+                      function flattenItems(items) {
+                        return items.reduce((acc, item, index) => {
+                          const i = index + 1;
+                          acc[`item_${i}_title`] = item.title;
+                          acc[`item_${i}_selling_price`] = item.selling_price;
+                          acc[`item_${i}_compare_at_price`] = item.compare_at_price;
+                          acc[`item_${i}_subtitle_1`] = item.subtitle_1;
+                          acc[`item_${i}_subtitle_2`] = item.subtitle_2;
+                          acc[`item_${i}_discount`] = item.discount;
+                          return acc;
+                        }, {});
+                      }
 
-                    function openPopup() {
-                      popup.classList.add('active');
-                      overlay.classList.add('active');
+                      function openPopup() {
+                        popup.classList.add('active');
+                        overlay.classList.add('active');
 
-                      setTimeout(() => {
-                        const popupData = extractPopupData();
-                        const customer = window.customer || {};
-                        const address = customer.default_address || {};
+                        setTimeout(() => {
+                          const popupData = extractPopupData();
+                          const customer = window.customer || {};
+                          const address = customer.default_address || {};
 
-                        const flattenedItems = flattenItems(popupData.items);
+                          const flattenedItems = flattenItems(popupData.items);
 
-                        const eventData = {
-                          source_url: window.location.href,
-                          page_title: document.title,
-                          customer_id: customer.id || null,
-                          customer_email: customer.email || null,
-                          customer_name: `${customer.first_name || ''} ${customer.last_name || ''}`.trim(),
-                          customer_phone: customer.phone || null,
-                          customer_address: `${address.address1 || ''}, ${address.city || ''}, ${
-                            address.province || ''
-                          }, ${address.zip || ''}, ${address.country || ''}`.trim(),
-                          total_cost: popupData.total_cost,
-                          ...flattenedItems,
-                        };
+                          const eventData = {
+                            source_url: window.location.href,
+                            page_title: document.title,
+                            customer_id: customer.id || null,
+                            customer_email: customer.email || null,
+                            customer_name: `${customer.first_name || ''} ${customer.last_name || ''}`.trim(),
+                            customer_phone: customer.phone || null,
+                            customer_address: `${address.address1 || ''}, ${address.city || ''}, ${
+                              address.province || ''
+                            }, ${address.zip || ''}, ${address.country || ''}`.trim(),
+                            total_cost: popupData.total_cost,
+                            ...flattenedItems,
+                          };
 
-                        gtag('event', 'price_breakdown', eventData);
-                        console.log('price_breakdown event sent with:', eventData);
+                          gtag('event', 'price_breakdown', eventData);
+                          console.log('price_breakdown event sent with:', eventData);
 
-                        // ✅ Meta Pixel tracking
-                        if (typeof fbq === 'function') {
-                          fbq('trackCustom', 'price_breakdown', eventData);
+                          // ✅ Meta Pixel tracking
+                          if (typeof fbq === 'function') {
+                            fbq('trackCustom', 'price_breakdown', eventData);
+                          }
+                        }, 100);
+                      }
+
+                      function closePopup() {
+                        popup.classList.remove('active');
+                        overlay.classList.remove('active');
+                      }
+
+                      function togglePopup() {
+                        if (popup.classList.contains('active')) {
+                          closePopup();
+                        } else {
+                          openPopup();
                         }
-                      }, 100);
-                    }
-
-                    function closePopup() {
-                      popup.classList.remove('active');
-                      overlay.classList.remove('active');
-                    }
-
-                    function togglePopup() {
-                      if (popup.classList.contains('active')) {
-                        closePopup();
-                      } else {
-                        openPopup();
                       }
-                    }
 
-                    container.addEventListener('click', togglePopup);
-                    closeBtn?.addEventListener('click', closePopup);
+                      container.addEventListener('click', togglePopup);
+                      closeBtn?.addEventListener('click', closePopup);
 
-                    overlay?.addEventListener('click', (e) => {
-                      if (!popup.contains(e.target)) {
-                        closePopup();
-                      }
-                    });
+                      overlay?.addEventListener('click', (e) => {
+                        if (!popup.contains(e.target)) {
+                          closePopup();
+                        }
+                      });
                     }
                     if (document.readyState === 'loading') {
                       document.addEventListener('DOMContentLoaded', initPriceBreakdown);
@@ -1160,8 +1162,14 @@
                           >
                         </div>
                         <div class="product-description-paragraph product-page-details-list_body collapsible product-page-details-list_body-product-info">
-                          <div style="  font-size: 1.2rem !important;
-  line-height: 2.4rem;">{{ product.description }}</div>
+                          <div
+                            style="
+                              font-size: 1.2rem !important;
+                              line-height: 2.4rem;
+                            "
+                          >
+                            {{ product.description }}
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -1367,51 +1375,51 @@
                 <script>
                   (function () {
                     function initPincodeGA() {
-                    const checkerButton = document.querySelector('.pincode-checker-button');
+                      const checkerButton = document.querySelector('.pincode-checker-button');
 
-                    function isElementVisible(el) {
-                      return el && window.getComputedStyle(el).display !== 'none';
-                    }
-
-                    function sendPincodeAvailabilityEvent() {
-                      const zipcode = document.getElementById('zipcode')?.value.trim();
-                      const result = document.getElementById('res')?.innerText.trim();
-                      const deliveryDateEl = document.querySelector('.expected-delivery-date');
-                      const deliveryDate = document.getElementById('delivery-date')?.innerText.trim();
-
-                      const customer = window.customer || {};
-                      const address = customer.default_address || {};
-
-                      const eventData = {
-                        source_url: window.location.href,
-                        page_title: document.title,
-                        customer_id: customer.id || null,
-                        customer_email: customer.email || null,
-                        customer_name: `${customer.first_name || ''} ${customer.last_name || ''}`.trim(),
-                        customer_phone: customer.phone || null,
-                        customer_address: `${address.address1 || ''}, ${address.city || ''}, ${
-                          address.province || ''
-                        }, ${address.zip || ''}, ${address.country || ''}`.trim(),
-                        pincode_entered: zipcode || null,
-                        availability_result: result || null,
-                      };
-
-                      if (isElementVisible(deliveryDateEl)) {
-                        eventData.expected_delivery_date = deliveryDate || null;
+                      function isElementVisible(el) {
+                        return el && window.getComputedStyle(el).display !== 'none';
                       }
 
-                      gtag('event', 'check_availability_ship', eventData);
-                      console.log('check_availability_ship event sent with:', eventData);
+                      function sendPincodeAvailabilityEvent() {
+                        const zipcode = document.getElementById('zipcode')?.value.trim();
+                        const result = document.getElementById('res')?.innerText.trim();
+                        const deliveryDateEl = document.querySelector('.expected-delivery-date');
+                        const deliveryDate = document.getElementById('delivery-date')?.innerText.trim();
 
-                      // ✅ Meta Pixel tracking
-                      if (typeof fbq === 'function') {
-                        fbq('trackCustom', 'check_availability_ship', eventData);
+                        const customer = window.customer || {};
+                        const address = customer.default_address || {};
+
+                        const eventData = {
+                          source_url: window.location.href,
+                          page_title: document.title,
+                          customer_id: customer.id || null,
+                          customer_email: customer.email || null,
+                          customer_name: `${customer.first_name || ''} ${customer.last_name || ''}`.trim(),
+                          customer_phone: customer.phone || null,
+                          customer_address: `${address.address1 || ''}, ${address.city || ''}, ${
+                            address.province || ''
+                          }, ${address.zip || ''}, ${address.country || ''}`.trim(),
+                          pincode_entered: zipcode || null,
+                          availability_result: result || null,
+                        };
+
+                        if (isElementVisible(deliveryDateEl)) {
+                          eventData.expected_delivery_date = deliveryDate || null;
+                        }
+
+                        gtag('event', 'check_availability_ship', eventData);
+                        console.log('check_availability_ship event sent with:', eventData);
+
+                        // ✅ Meta Pixel tracking
+                        if (typeof fbq === 'function') {
+                          fbq('trackCustom', 'check_availability_ship', eventData);
+                        }
                       }
-                    }
 
-                    checkerButton?.addEventListener('click', () => {
-                      setTimeout(sendPincodeAvailabilityEvent, 500); // Allow time for DOM to update
-                    });
+                      checkerButton?.addEventListener('click', () => {
+                        setTimeout(sendPincodeAvailabilityEvent, 500); // Allow time for DOM to update
+                      });
                     }
                     if (document.readyState === 'loading') {
                       document.addEventListener('DOMContentLoaded', initPincodeGA);
@@ -1515,7 +1523,7 @@
                 order: 9;
                 margin: 0;
               }
-              .product__info-container .product__inventory{
+              .product__info-container .product__inventory {
                 order: 10;
               }
               .product__info-container .pincode-checker-result {
@@ -1718,10 +1726,11 @@
       {% break %}
     {% endif %}
   {% endfor %}
-  {% if has_stock %}
-    <p id="tryAtHomeButton" class="try-at-home-button try-at-home-button-sticky">Try at Home</p>
-    {% comment %} <p id="videoTrialButton" class="try-at-home-button try-at-home-button-sticky">Video Trial</p> {% endcomment %}
-  {% endif %}
+  {% comment %}
+    {% if has_stock %}
+      <p id="tryAtHomeButton" class="try-at-home-button try-at-home-button-sticky">Try at Home</p>
+    {% endif %}
+  {% endcomment %}
   {%- render 'buy-buttons',
     product: product,
     product_form_id: product_form_id,
@@ -1753,12 +1762,10 @@
     function syncStickyForm() {
       var variantId = getCurrentVariantId();
       if (!variantId) return;
-      document
-        .querySelectorAll('.sticky-atc-container .product-variant-id[name="id"]')
-        .forEach(function (input) {
-          input.value = variantId;
-          input.removeAttribute('disabled');
-        });
+      document.querySelectorAll('.sticky-atc-container .product-variant-id[name="id"]').forEach(function (input) {
+        input.value = variantId;
+        input.removeAttribute('disabled');
+      });
     }
 
     // <product-info> dispatches this after each variant swap completes.
@@ -2306,8 +2313,8 @@ document.addEventListener('DOMContentLoaded', () => {
 <script>
   (function () {
     function initAddToCartTracking() {
-      const productForms = Array.from(document.querySelectorAll('form')).filter((form) =>
-        form.querySelector('button.product-form__submit') && !form.dataset.atcTracked
+      const productForms = Array.from(document.querySelectorAll('form')).filter(
+        (form) => form.querySelector('button.product-form__submit') && !form.dataset.atcTracked
       );
 
       productForms.forEach((productForm) => {
