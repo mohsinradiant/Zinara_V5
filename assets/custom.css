@@ -643,9 +643,7 @@ product-info .price__container span {
   margin-bottom: 0.7rem;
 }
 
-.product-page-details-container
-  .product-page-details-parent-child
-  .product-description-paragraph {
+.product-page-details-container .product-page-details-parent-child .product-description-paragraph {
   font-size: 1.2rem !important;
   line-height: 2.4rem;
 }
@@ -765,6 +763,11 @@ product-info variant-selects img {
   font-weight: 400;
   letter-spacing: 0;
   line-height: 1;
+}
+
+product-form .product-form__buttons button:first-of-type {
+  border: solid 1px #712242;
+  color: #712242;
 }
 
 .try-at-home-button {
@@ -893,8 +896,7 @@ body.no-scroll {
   padding-bottom: 0 !important;
 }
 
-.jdgm-widget:not(.jdgm-review-widget--small, .jdgm-review-widget--medium)
-  .jdgm-row-stars {
+.jdgm-widget:not(.jdgm-review-widget--small, .jdgm-review-widget--medium) .jdgm-row-stars {
   padding-bottom: 0 !important;
 }
 
@@ -985,7 +987,7 @@ body.no-scroll {
   display: none !important;
 }
 
-.facets .disclosure-has-popup[open] > summary + * {
+.facets .disclosure-has-popup[open]>summary+* {
   padding: 2rem 3.3rem 2rem 2rem;
 }
 
@@ -1181,6 +1183,7 @@ body.no-scroll {
   width: 100%;
   text-align: center;
 }
+
 .contact-cta-section {
   display: flex;
   justify-content: center;
@@ -1190,22 +1193,22 @@ body.no-scroll {
 }
 
 .contact-cta-button {
-    display: inline-flex;
-    align-items
-: center;
-    justify-content: center;
-    padding: 10px 32px;
-    background-color: #712242;
-    color: #ffffff;
-    text-decoration: none;
-    border-radius: 6px;
-    font-size: 1.4rem;
-    font-weight: 500;
-    font-family: "Montserrat", sans-serif;
-    letter-spacing: 0;
-    transition: all 0.3s ease;
-    border: 1px solid #712242;
-    width: 100%;}
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 32px;
+  background-color: #712242;
+  color: #ffffff;
+  text-decoration: none;
+  border-radius: 6px;
+  font-size: 1.4rem;
+  font-weight: 500;
+  font-family: "Montserrat", sans-serif;
+  letter-spacing: 0;
+  transition: all 0.3s ease;
+  border: 1px solid #712242;
+  width: 100%;
+}
 
 .contact-cta-button:hover {
   background-color: #5a1b35;
@@ -1238,7 +1241,7 @@ header .menu-drawer {
   list-style: none;
 }
 
-.dropdown[open] > .dropdown-menu {
+.dropdown[open]>.dropdown-menu {
   display: block;
 }
 
@@ -1585,11 +1588,7 @@ sticky-header {
     padding: 0;
   }
 
-  #main-collection-filters
-    .facets-container
-    facet-filters-form
-    .facets__form-vertical
-    #FacetsWrapperDesktop {
+  #main-collection-filters .facets-container facet-filters-form .facets__form-vertical #FacetsWrapperDesktop {
     overflow-x: auto !important;
   }
 
@@ -1778,7 +1777,7 @@ sticky-header {
     line-height: 2rem;
   }
 
-  #FacetsWrapperDesktop > details:first-of-type {
+  #FacetsWrapperDesktop>details:first-of-type {
     display: none;
   }
 
@@ -1818,11 +1817,7 @@ sticky-header {
     gap: 10px;
   }
 
-  .facets-vertical
-    .facets-wrapper
-    facet-filters-form
-    #FacetsWrapperDesktop
-    span {
+  .facets-vertical .facets-wrapper facet-filters-form #FacetsWrapperDesktop span {
     color: #610c27;
     text-wrap: nowrap !important;
     font-size: 1.4rem;
@@ -1908,7 +1903,7 @@ sticky-header {
     padding: 0 !important;
   }
 
-  header .header__icon--search > span:not(:has(.svg-wrapper)) {
+  header .header__icon--search>span:not(:has(.svg-wrapper)) {
     display: none;
   }
 
@@ -2066,14 +2061,11 @@ sticky-header {
     padding-top: 0 !important;
   }
 
-  #shopify-section-template--24203645747384__collapsible_content_8wA47G
-    .accordion {
+  #shopify-section-template--24203645747384__collapsible_content_8wA47G .accordion {
     margin: 0 !important;
   }
 
-  #shopify-section-template--24203645747384__collapsible_content_8wA47G
-    .accordion
-    h3 {
+  #shopify-section-template--24203645747384__collapsible_content_8wA47G .accordion h3 {
     font-family: "Montserrat", sans-serif !important;
   }
 
@@ -2167,17 +2159,18 @@ sticky-header {
     gap: 13px;
   }
 
- 
-}
- /* Contact CTA Button Styling */
-  @media (max-width: 768px) {
-    .contact-cta-section {
-      margin: 30px 0 10px;
-    }
 
-    .contact-cta-button {
-      width: 100%;
-      padding: 12px 24px;
-      font-size: 12px;
-    }
+}
+
+/* Contact CTA Button Styling */
+@media (max-width: 768px) {
+  .contact-cta-section {
+    margin: 30px 0 10px;
   }
+
+  .contact-cta-button {
+    width: 100%;
+    padding: 12px 24px;
+    font-size: 12px;
+  }
+}
