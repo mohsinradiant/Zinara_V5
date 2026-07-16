@@ -31,13 +31,6 @@
           "type": "product-features-badges",
           "settings": {}
         },
-        "discounts_offers_block": {
-          "type": "discounts",
-          "settings": {
-            "show_heading": false,
-            "heading": "Available Offers"
-          }
-        },
         "variant_picker": {
           "type": "variant_picker",
           "settings": {
@@ -76,6 +69,13 @@
           "settings": {
             "show_dynamic_checkout": true,
             "show_gift_card_recipient": true
+          }
+        },
+        "discounts_offers_block": {
+          "type": "discounts",
+          "settings": {
+            "show_heading": false,
+            "heading": "Available Offers"
           }
         },
         "inventory_indicator_QcmNEB": {
@@ -126,7 +126,6 @@
         "text_GipLTP",
         "price",
         "product_features_badges_8LbYCC",
-        "discounts_offers_block",
         "variant_picker",
         "brand_usps_P3f6Uz",
         "pincode_availability_VEqKEh",
@@ -134,6 +133,7 @@
         "description",
         "price_breakdown_dropdown_EyiwWU",
         "buy_buttons",
+        "discounts_offers_block",
         "inventory_indicator_QcmNEB",
         "assistance_buttons_NnwHCV",
         "details_dropdown_P4zhGG",
