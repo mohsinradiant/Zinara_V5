@@ -116,7 +116,10 @@
 
       {%- if is_copyable -%}
         <div class="discount-offer-card__code">
-          <span class="discount-offer-card__code-label">{{ offer.discount_code }}</span>
+          <span class="discount-offer-card__code-label">
+            {{- 'icon-copy.svg' | inline_asset_content -}}
+            {{- offer.discount_code -}}
+          </span>
           <span class="discount-offer-card__code-copied">
             {{- 'icon-checkmark.svg' | inline_asset_content -}}
             Copied!
