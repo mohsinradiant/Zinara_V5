@@ -33,15 +33,17 @@
 {%- assign offers = shop.metaobjects.discount_offer.values -%}
 {%- capture offer_cards_html -%}
   {%- for offer in offers -%}
+    {%- assign offer_products = offer.products.value -%}
+    {%- assign offer_collections = offer.collections.value -%}
     {%- assign offer_matches = true -%}
-    {%- if offer.products.size > 0 or offer.collections.size > 0 -%}
+    {%- if offer_products.size > 0 or offer_collections.size > 0 -%}
       {%- assign offer_matches = false -%}
-      {%- assign offer_product_ids = offer.products | map: 'id' -%}
+      {%- assign offer_product_ids = offer_products | map: 'id' -%}
       {%- if offer_product_ids contains product.id -%}
         {%- assign offer_matches = true -%}
       {%- endif -%}
-      {%- if offer_matches == false and offer.collections.size > 0 -%}
-        {%- assign offer_collection_ids = offer.collections | map: 'id' -%}
+      {%- if offer_matches == false and offer_collections.size > 0 -%}
+        {%- assign offer_collection_ids = offer_collections | map: 'id' -%}
         {%- for product_collection in product.collections -%}
           {%- if offer_collection_ids contains product_collection.id -%}
             {%- assign offer_matches = true -%}
@@ -50,14 +52,6 @@
         {%- endfor -%}
       {%- endif -%}
     {%- endif -%}
-    <div style="background:#ffe; border:1px solid #cc0; padding:6px; font-size:11px; font-family:monospace; white-space:pre-wrap;">
-      TEMP DEBUG {{ offer.heading }} / {{ offer.highlight_text }}
-      offer.system.type={{ offer.system.type }}
-      RAW FIELDS:
-      {%- for f in offer.fields -%}
-      &#10;  key="{{ f.key }}" type="{{ f.type }}" value="{{ f.value }}"
-      {%- endfor %}
-    </div>
     {%- if offer_matches == false -%}
       {%- continue -%}
     {%- endif -%}
