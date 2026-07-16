@@ -1436,6 +1436,8 @@
                   })();
                 </script>
 
+              {%- when 'discounts' -%}
+                {% render 'discount-offers', block: block %}
               {%- when 'inventory-indicator' -%}
                 <p
                   class="product__inventory{% if block.settings.text_style == 'uppercase' %} caption-with-letter-spacing{% elsif block.settings.text_style == 'subtitle' %} subtitle{% endif %}{% if product.selected_or_first_available_variant.inventory_management != 'shopify' %} visibility-hidden{% endif %}"
@@ -1504,6 +1506,10 @@
               .product__info-container .product__description-container {
                 order: 5;
                 margin-top: 1.2rem;
+              }
+              .product__info-container .discount-offers-block {
+                order: 4;
+                margin: 0.8rem 0;
               }
               .product__info-container variant-selects {
                 order: 6;
