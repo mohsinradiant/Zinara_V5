@@ -3849,6 +3849,28 @@ document.addEventListener('DOMContentLoaded', () => {
       "name": "Product Features Badges"
     },
     {
+      "type": "discounts",
+      "name": "Discounts & Offers",
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "show_heading",
+          "label": "Show heading",
+          "default": false
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Available Offers"
+        },
+        {
+          "type": "paragraph",
+          "content": "Cards are pulled automatically from the \"discount_offer\" metaobject entries (Content > Metaobjects in the Shopify admin). Add, remove or reorder entries there to change the cards shown here."
+        }
+      ]
+    },
+    {
       "type": "pincode-availability",
       "name": "Pincode Availability"
     },
