@@ -9,8 +9,6 @@
     cta_text        single line text   optional, e.g. "View All Products>"
     cta_url         url                optional, used with cta_text
     discount_code   single line text   optional, tapping/clicking the card copies this
-    terms_text      single line text   optional, defaults to "T&C"
-    terms_url       url                optional, opens in a new tab
 
   Accepts:
     block - the section block rendering this snippet (for settings + shopify_attributes)
@@ -70,16 +68,6 @@
               </span>
             </div>
           {%- endif -%}
-
-          <div class="discount-offer-card__tnc-row">
-            {%- if offer.terms_url != blank -%}
-              <a href="{{ offer.terms_url }}" target="_blank" rel="noopener" class="discount-offer-card__tnc">
-                {{- offer.terms_text | default: 'T&C' -}}
-              </a>
-            {%- else -%}
-              <span class="discount-offer-card__tnc">{{ offer.terms_text | default: 'T&C' }}</span>
-            {%- endif -%}
-          </div>
         </div>
       {%- endfor -%}
     </div>
