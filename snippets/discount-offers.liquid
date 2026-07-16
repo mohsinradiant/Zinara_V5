@@ -9,19 +9,52 @@
     cta_text        single line text   optional, e.g. "View All Products>"
     cta_url         url                optional, used with cta_text
     discount_code   single line text   optional, tapping/clicking the card copies this
+    products        list of products      optional, restricts the card to these products
+    collections     list of collections    optional, restricts the card to products in these collections
+
+  An entry with both `products` and `collections` left empty is shown on every
+  product. An entry with either field set is only shown when the current
+  product matches one of the selected products or belongs to one of the
+  selected collections.
 
   Accepts:
-    block - the section block rendering this snippet (for settings + shopify_attributes)
+    block   - the section block rendering this snippet (for settings + shopify_attributes)
+    product - the product being viewed, used to filter which offers apply
 {% endcomment %}
 {%- assign offers = shop.metaobjects.discount_offer.values -%}
-{%- if offers.size > 0 -%}
+{%- assign visible_offers = '' | split: ',' -%}
+{%- for offer in offers -%}
+  {%- assign is_targeted = false -%}
+  {%- assign offer_matches = true -%}
+  {%- if offer.products.size > 0 or offer.collections.size > 0 -%}
+    {%- assign is_targeted = true -%}
+    {%- assign offer_matches = false -%}
+  {%- endif -%}
+  {%- if is_targeted -%}
+    {%- if offer.products contains product -%}
+      {%- assign offer_matches = true -%}
+    {%- endif -%}
+    {%- if offer_matches == false -%}
+      {%- for offer_collection in offer.collections -%}
+        {%- if product.collections contains offer_collection -%}
+          {%- assign offer_matches = true -%}
+          {%- break -%}
+        {%- endif -%}
+      {%- endfor -%}
+    {%- endif -%}
+  {%- endif -%}
+  {%- if offer_matches -%}
+    {%- assign visible_offers = visible_offers | push: offer -%}
+  {%- endif -%}
+{%- endfor -%}
+{%- if visible_offers.size > 0 -%}
   <div class="discount-offers-block" id="Discounts-{{ block.id }}" {{ block.shopify_attributes }}>
     {%- if block.settings.show_heading and block.settings.heading != blank -%}
       <h3 class="discount-offers-block__heading">{{ block.settings.heading }}</h3>
     {%- endif -%}
 
     <div class="discount-offers-track" role="list">
-      {%- for offer in offers -%}
+      {%- for offer in visible_offers -%}
         {%- assign is_copyable = false -%}
         {%- if offer.discount_code != blank -%}
           {%- assign is_copyable = true -%}
