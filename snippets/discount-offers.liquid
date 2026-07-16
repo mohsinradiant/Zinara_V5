@@ -36,12 +36,14 @@
     {%- assign offer_matches = true -%}
     {%- if offer.products.size > 0 or offer.collections.size > 0 -%}
       {%- assign offer_matches = false -%}
-      {%- if offer.products contains product -%}
+      {%- assign offer_product_ids = offer.products | map: 'id' -%}
+      {%- if offer_product_ids contains product.id -%}
         {%- assign offer_matches = true -%}
       {%- endif -%}
-      {%- if offer_matches == false -%}
-        {%- for offer_collection in offer.collections -%}
-          {%- if product.collections contains offer_collection -%}
+      {%- if offer_matches == false and offer.collections.size > 0 -%}
+        {%- assign offer_collection_ids = offer.collections | map: 'id' -%}
+        {%- for product_collection in product.collections -%}
+          {%- if offer_collection_ids contains product_collection.id -%}
             {%- assign offer_matches = true -%}
             {%- break -%}
           {%- endif -%}
