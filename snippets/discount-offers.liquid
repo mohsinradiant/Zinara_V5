@@ -22,87 +22,84 @@
     product - the product being viewed, used to filter which offers apply
 {% endcomment %}
 {%- assign offers = shop.metaobjects.discount_offer.values -%}
-{%- assign visible_offers = '' | split: ',' -%}
-{%- for offer in offers -%}
-  {%- assign is_targeted = false -%}
-  {%- assign offer_matches = true -%}
-  {%- if offer.products.size > 0 or offer.collections.size > 0 -%}
-    {%- assign is_targeted = true -%}
-    {%- assign offer_matches = false -%}
-  {%- endif -%}
-  {%- if is_targeted -%}
-    {%- if offer.products contains product -%}
-      {%- assign offer_matches = true -%}
+{%- capture offer_cards_html -%}
+  {%- for offer in offers -%}
+    {%- assign offer_matches = true -%}
+    {%- if offer.products.size > 0 or offer.collections.size > 0 -%}
+      {%- assign offer_matches = false -%}
+      {%- if offer.products contains product -%}
+        {%- assign offer_matches = true -%}
+      {%- endif -%}
+      {%- if offer_matches == false -%}
+        {%- for offer_collection in offer.collections -%}
+          {%- if product.collections contains offer_collection -%}
+            {%- assign offer_matches = true -%}
+            {%- break -%}
+          {%- endif -%}
+        {%- endfor -%}
+      {%- endif -%}
     {%- endif -%}
     {%- if offer_matches == false -%}
-      {%- for offer_collection in offer.collections -%}
-        {%- if product.collections contains offer_collection -%}
-          {%- assign offer_matches = true -%}
-          {%- break -%}
-        {%- endif -%}
-      {%- endfor -%}
+      {%- continue -%}
     {%- endif -%}
-  {%- endif -%}
-  {%- if offer_matches -%}
-    {%- assign visible_offers = visible_offers | push: offer -%}
-  {%- endif -%}
-{%- endfor -%}
-{%- if visible_offers.size > 0 -%}
+
+    {%- assign is_copyable = false -%}
+    {%- if offer.discount_code != blank -%}
+      {%- assign is_copyable = true -%}
+    {%- endif -%}
+    <div
+      class="discount-offer-card{% if is_copyable %} discount-offer-card--copyable{% endif %}"
+      role="listitem"
+      {% if is_copyable %}
+        data-discount-code="{{ offer.discount_code | escape }}"
+        tabindex="0"
+        role="button"
+        aria-label="Copy discount code {{ offer.discount_code | escape }}"
+      {% endif %}
+    >
+      <div class="discount-offer-card__header">
+        <svg class="discount-offer-card__badge" viewBox="0 0 24 24" aria-hidden="true">
+          <path
+            fill="#17A34A"
+            d="M12,2 L14.76,5.35 L19.07,4.93 L18.65,9.24 L22,12 L18.65,14.76 L19.07,19.07 L14.76,18.65 L12,22 L9.24,18.65 L4.93,19.07 L5.35,14.76 L2,12 L5.35,9.24 L4.93,4.93 L9.24,5.35 Z"
+          />
+          <text x="12" y="15.5" text-anchor="middle" font-size="9" font-weight="700" fill="#fff">%</text>
+        </svg>
+        <span class="discount-offer-card__heading">{{ offer.heading }}</span>
+      </div>
+
+      {%- if offer.highlight_text != blank -%}
+        <p class="discount-offer-card__highlight">{{ offer.highlight_text }}</p>
+      {%- endif -%}
+
+      {%- if offer.description != blank -%}
+        <p class="discount-offer-card__description">{{ offer.description }}</p>
+      {%- endif -%}
+
+      {%- if offer.cta_text != blank -%}
+        <a href="{{ offer.cta_url | default: '#' }}" class="discount-offer-card__cta">{{ offer.cta_text }}</a>
+      {%- endif -%}
+
+      {%- if is_copyable -%}
+        <div class="discount-offer-card__code">
+          <span class="discount-offer-card__code-label">{{ offer.discount_code }}</span>
+          <span class="discount-offer-card__code-copied">
+            {{- 'icon-checkmark.svg' | inline_asset_content -}}
+            Copied!
+          </span>
+        </div>
+      {%- endif -%}
+    </div>
+  {%- endfor -%}
+{%- endcapture -%}
+{%- if offer_cards_html != blank -%}
   <div class="discount-offers-block" id="Discounts-{{ block.id }}" {{ block.shopify_attributes }}>
     {%- if block.settings.show_heading and block.settings.heading != blank -%}
       <h3 class="discount-offers-block__heading">{{ block.settings.heading }}</h3>
     {%- endif -%}
 
     <div class="discount-offers-track" role="list">
-      {%- for offer in visible_offers -%}
-        {%- assign is_copyable = false -%}
-        {%- if offer.discount_code != blank -%}
-          {%- assign is_copyable = true -%}
-        {%- endif -%}
-        <div
-          class="discount-offer-card{% if is_copyable %} discount-offer-card--copyable{% endif %}"
-          role="listitem"
-          {% if is_copyable %}
-            data-discount-code="{{ offer.discount_code | escape }}"
-            tabindex="0"
-            role="button"
-            aria-label="Copy discount code {{ offer.discount_code | escape }}"
-          {% endif %}
-        >
-          <div class="discount-offer-card__header">
-            <svg class="discount-offer-card__badge" viewBox="0 0 24 24" aria-hidden="true">
-              <path
-                fill="#17A34A"
-                d="M12,2 L14.76,5.35 L19.07,4.93 L18.65,9.24 L22,12 L18.65,14.76 L19.07,19.07 L14.76,18.65 L12,22 L9.24,18.65 L4.93,19.07 L5.35,14.76 L2,12 L5.35,9.24 L4.93,4.93 L9.24,5.35 Z"
-              />
-              <text x="12" y="15.5" text-anchor="middle" font-size="9" font-weight="700" fill="#fff">%</text>
-            </svg>
-            <span class="discount-offer-card__heading">{{ offer.heading }}</span>
-          </div>
-
-          {%- if offer.highlight_text != blank -%}
-            <p class="discount-offer-card__highlight">{{ offer.highlight_text }}</p>
-          {%- endif -%}
-
-          {%- if offer.description != blank -%}
-            <p class="discount-offer-card__description">{{ offer.description }}</p>
-          {%- endif -%}
-
-          {%- if offer.cta_text != blank -%}
-            <a href="{{ offer.cta_url | default: '#' }}" class="discount-offer-card__cta">{{ offer.cta_text }}</a>
-          {%- endif -%}
-
-          {%- if is_copyable -%}
-            <div class="discount-offer-card__code">
-              <span class="discount-offer-card__code-label">{{ offer.discount_code }}</span>
-              <span class="discount-offer-card__code-copied">
-                {{- 'icon-checkmark.svg' | inline_asset_content -}}
-                Copied!
-              </span>
-            </div>
-          {%- endif -%}
-        </div>
-      {%- endfor -%}
+      {{ offer_cards_html }}
     </div>
 
     <div class="visually-hidden" aria-live="polite" data-discount-offers-announcer></div>
