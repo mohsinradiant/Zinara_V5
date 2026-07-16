@@ -3,19 +3,28 @@
 
   Each card = one entry of the `discount_offer` metaobject
   (Content > Metaobjects in the Shopify admin). Expected fields:
-    heading         single line text   e.g. "Coupon"
-    highlight_text  single line text   optional, e.g. "Offer Price ₹1051"
-    description     multi-line text    e.g. "Get Flat 22% off upto 400."
-    cta_text        single line text   optional, e.g. "View All Products>"
-    cta_url         url                optional, used with cta_text
-    discount_code   single line text   optional, tapping/clicking the card copies this
-    products        list of products      optional, restricts the card to these products
-    collections     list of collections    optional, restricts the card to products in these collections
+    heading             single line text   e.g. "Coupon"
+    highlight_text      single line text   optional, e.g. "Offer Price" (the
+                                            computed discounted price, see
+                                            below, is appended automatically)
+    description         multi-line text    e.g. "Get Flat 22% off upto 400."
+    cta_text            single line text   optional, e.g. "View All Products>"
+    cta_url             url                optional, used with cta_text
+    discount_code       single line text   optional, tapping/clicking the card copies this
+    discount_type       single line text   optional, "percentage" (default) or "fixed"
+    discount_value      number (decimal)   optional, % off (e.g. 22) or flat rupees off (e.g. 150)
+    max_discount_amount number (decimal)   optional, rupee cap on a percentage discount (e.g. 400)
+    products            list of products      optional, restricts the card to these products
+    collections         list of collections    optional, restricts the card to products in these collections
 
   An entry with both `products` and `collections` left empty is shown on every
   product. An entry with either field set is only shown when the current
   product matches one of the selected products or belongs to one of the
   selected collections.
+
+  When `discount_value` is set, the card's highlight line shows
+  `highlight_text` followed by " ₹<price after discount>", computed from the
+  current product's variant price.
 
   Accepts:
     block   - the section block rendering this snippet (for settings + shopify_attributes)
@@ -69,7 +78,28 @@
       </div>
 
       {%- if offer.highlight_text != blank -%}
-        <p class="discount-offer-card__highlight">{{ offer.highlight_text }}</p>
+        <p class="discount-offer-card__highlight">
+          {{- offer.highlight_text -}}
+          {%- if offer.discount_value != blank and offer.discount_value != 0 -%}
+            {%- assign variant_price = product.selected_or_first_available_variant.price -%}
+            {%- if offer.discount_type == 'fixed' -%}
+              {%- assign discount_amount = offer.discount_value | times: 100 -%}
+            {%- else -%}
+              {%- assign discount_amount = variant_price | times: offer.discount_value | divided_by: 100 -%}
+              {%- if offer.max_discount_amount != blank and offer.max_discount_amount > 0 -%}
+                {%- assign max_discount_amount = offer.max_discount_amount | times: 100 -%}
+                {%- if discount_amount > max_discount_amount -%}
+                  {%- assign discount_amount = max_discount_amount -%}
+                {%- endif -%}
+              {%- endif -%}
+            {%- endif -%}
+            {%- assign offer_price = variant_price | minus: discount_amount -%}
+            {%- if offer_price < 0 -%}
+              {%- assign offer_price = 0 -%}
+            {%- endif -%}
+            {{ ' ' }}₹{{ offer_price | divided_by: 100 }}
+          {%- endif -%}
+        </p>
       {%- endif -%}
 
       {%- if offer.description != blank -%}
