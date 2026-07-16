@@ -52,13 +52,11 @@
     {%- endif -%}
     <div style="background:#ffe; border:1px solid #cc0; padding:6px; font-size:11px; font-family:monospace; white-space:pre-wrap;">
       TEMP DEBUG {{ offer.heading }} / {{ offer.highlight_text }}
-      offer.products.size={{ offer.products.size }}
-      offer.products={{ offer.products | map: 'title' | join: ', ' }}
-      offer.collections.size={{ offer.collections.size }}
-      offer.collections={{ offer.collections | map: 'title' | join: ', ' }}
-      current product.id={{ product.id }} product.title={{ product.title }}
-      product.collections={{ product.collections | map: 'title' | join: ', ' }}
-      offer_matches(before skip)={{ offer_matches }}
+      offer.system.type={{ offer.system.type }}
+      RAW FIELDS:
+      {%- for f in offer.fields -%}
+      &#10;  key="{{ f.key }}" type="{{ f.type }}" value="{{ f.value }}"
+      {%- endfor %}
     </div>
     {%- if offer_matches == false -%}
       {%- continue -%}
