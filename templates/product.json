@@ -125,8 +125,8 @@
         "media_block_DLywUT": {
           "type": "media-block",
           "settings": {
-            "desktop_image": "shopify://shop_images/ulquiorra-banner.gif",
-            "mobile_image": "shopify://shop_images/bleach-ichigo.gif",
+            "desktop_image": "shopify://shop_images/vermeil_test.gif",
+            "mobile_image": "shopify://shop_images/vermeil_test.gif",
             "alt_text": ""
           }
         },
