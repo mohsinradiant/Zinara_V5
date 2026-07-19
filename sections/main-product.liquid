@@ -130,6 +130,12 @@
                       {% endfor %}
                     </div>
                   {%- endif -%}
+                  {%- if product.metafields.reviews.rating.value != blank -%}
+                    <div class="card__rating-badge" aria-hidden="true">
+                      <span class="card__rating-badge-value">{{ product.metafields.reviews.rating.value }}</span>
+                      <span class="card__rating-badge-star">&#9733;</span>
+                    </div>
+                  {%- endif -%}
                   {% comment %}
                     <div class="price-breakdown-container">
                       <span>Price Breakdown</span>
@@ -1562,7 +1568,7 @@
               }
               .product__info-container .pincode-availability-checker-container {
                 order: 9;
-                margin: 0;
+                margin: 0 0 22px;
               }
               .product__info-container .product__inventory {
                 order: 10;
@@ -1582,7 +1588,7 @@
               }
               .product__info-container .assistance_buttons_container {
                 order: 15;
-                margin-top: 30px;
+                margin-top: 22px;
               }
               .product-page-details-container {
                 order: 16;

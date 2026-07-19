@@ -70,18 +70,15 @@
         aria-label="Copy discount code {{ offer.discount_code | escape }}"
       {% endif %}
     >
+      {%- if offer.highlight_text != blank -%}
       <div class="discount-offer-card__header">
-        <svg class="discount-offer-card__badge" viewBox="0 0 24 24" aria-hidden="true">
+                <svg class="discount-offer-card__badge" viewBox="0 0 24 24" aria-hidden="true">
           <path
             fill="#712242"
             d="M12,2 L14.76,5.35 L19.07,4.93 L18.65,9.24 L22,12 L18.65,14.76 L19.07,19.07 L14.76,18.65 L12,22 L9.24,18.65 L4.93,19.07 L5.35,14.76 L2,12 L5.35,9.24 L4.93,4.93 L9.24,5.35 Z"
           />
           <text x="12" y="15.5" text-anchor="middle" font-size="9" font-weight="700" fill="#fff">%</text>
         </svg>
-        <span class="discount-offer-card__heading">{{ offer.heading }}</span>
-      </div>
-
-      {%- if offer.highlight_text != blank -%}
         <p class="discount-offer-card__highlight">
           {{- offer.highlight_text -}}
           {%- if offer.discount_value != blank and offer.discount_value != 0 -%}
@@ -104,6 +101,7 @@
             {{ ' ' }}₹{{ offer_price | divided_by: 100 }}
           {%- endif -%}
         </p>
+      </div>
       {%- endif -%}
 
       {%- if offer.description != blank -%}
@@ -145,6 +143,7 @@
   <style>
     .discount-offers-block {
       width: 100%;
+      margin-bottom: 22px
     }
     .discount-offers-block__heading {
       font-size: 1.4rem;
@@ -159,7 +158,11 @@
       -webkit-overflow-scrolling: touch;
       padding: 0.2rem 0.2rem 0.6rem;
       margin: -0.2rem -0.2rem -0.6rem;
-      scrollbar-width: thin;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+    .discount-offers-track::-webkit-scrollbar {
+      display: none;
     }
     .discount-offer-card {
       flex: 0 0 clamp(220px, 46%, 320px);

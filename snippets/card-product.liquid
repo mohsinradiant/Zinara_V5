@@ -104,6 +104,13 @@
                 >
               {%- endif -%}
             </div>
+
+            {%- if card_product.metafields.reviews.rating.value != blank -%}
+              <div class="card__rating-badge" aria-hidden="true">
+                <span class="card__rating-badge-value">{{ card_product.metafields.reviews.rating.value }}</span>
+                <span class="card__rating-badge-star">&#9733;</span>
+              </div>
+            {%- endif -%}
           </div>
         {%- endif -%}
         <div class="card__content">
