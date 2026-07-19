@@ -697,6 +697,7 @@ product-info .price__container span {
 product-info variant-selects {
   display: flex;
   flex-wrap: wrap;
+  flex-direction: column;
   justify-content: start;
   align-items: start;
   gap: 12px;
@@ -1537,6 +1538,32 @@ sticky-header {
 .product-info-image__right img {
   width: 100%;
   height: auto;
+}
+
+.product-media-block {
+  width: 100%;
+}
+
+.product-media-block__image {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  margin-top: 20px;
+}
+
+.product-media-block__image--mobile {
+  display: none;
+}
+
+@media (max-width: 756px) {
+  .product-media-block__image--desktop {
+    display: none;
+  }
+
+  .product-media-block__image--mobile {
+    display: block;
+  }
 }
 
 @media (max-width: 1050px) {

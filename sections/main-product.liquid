@@ -1459,6 +1459,35 @@
                     {%- endif -%}
                   {%- endif -%}
                 </p>
+              {%- when 'media-block' -%}
+                {%- liquid
+                  assign desktop_media = block.settings.desktop_image
+                  assign mobile_media = block.settings.mobile_image | default: block.settings.desktop_image
+                -%}
+                {%- if desktop_media != blank or mobile_media != blank -%}
+                  <div class="product-media-block" {{ block.shopify_attributes }}>
+                    {%- if desktop_media != blank -%}
+                      <img
+                        src="{{ desktop_media | image_url: width: 1500 }}"
+                        alt="{{ block.settings.alt_text | default: desktop_media.alt | escape }}"
+                        class="product-media-block__image product-media-block__image--desktop"
+                        loading="lazy"
+                        width="{{ desktop_media.width }}"
+                        height="{{ desktop_media.height }}"
+                      >
+                    {%- endif -%}
+                    {%- if mobile_media != blank -%}
+                      <img
+                        src="{{ mobile_media | image_url: width: 750 }}"
+                        alt="{{ block.settings.alt_text | default: mobile_media.alt | escape }}"
+                        class="product-media-block__image product-media-block__image--mobile"
+                        loading="lazy"
+                        width="{{ mobile_media.width }}"
+                        height="{{ mobile_media.height }}"
+                      >
+                    {%- endif -%}
+                  </div>
+                {%- endif -%}
             {%- endcase -%}
           {%- endfor -%}
 
@@ -1557,6 +1586,9 @@
               }
               .product-page-details-container {
                 order: 16;
+              }
+              .product-media-block {
+                order: 17;
               }
               .assistance_button_heading {
                 font-size: 1.4rem;
@@ -3939,6 +3971,37 @@ document.addEventListener('DOMContentLoaded', () => {
       ]
     },
 
+    {
+      "type": "media-block",
+      "name": "Image / GIF Block",
+      "settings": [
+        {
+          "type": "header",
+          "content": "Desktop"
+        },
+        {
+          "type": "image_picker",
+          "id": "desktop_image",
+          "label": "Desktop image or GIF"
+        },
+        {
+          "type": "header",
+          "content": "Mobile"
+        },
+        {
+          "type": "image_picker",
+          "id": "mobile_image",
+          "label": "Mobile image or GIF",
+          "info": "Defaults to the desktop image if left blank."
+        },
+        {
+          "type": "text",
+          "id": "alt_text",
+          "label": "Alt text",
+          "info": "Describe the image for accessibility. Defaults to the image's own alt text if left blank."
+        }
+      ]
+    },
     {
       "type": "brand-usps",
       "name": "Brand USPs"

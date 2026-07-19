@@ -173,9 +173,9 @@ product-info {
   flex: 1;
   padding: 0;
   margin: 0 0 1.2rem 0;
-  max-width: 44rem;
   min-width: fit-content;
   border: none;
+  width: 100%;
 }
 
 .product-form__input .form__label {

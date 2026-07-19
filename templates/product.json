@@ -96,6 +96,7 @@
         },
         "product_info_image_eaCYxw": {
           "type": "product-info-image",
+          "disabled": true,
           "settings": {
             "show_only_gold": true,
             "heading": "OUR PLATING IS",
@@ -110,6 +111,7 @@
         },
         "product_info_image_RdddYM": {
           "type": "product-info-image",
+          "disabled": true,
           "settings": {
             "show_only_gold": false,
             "heading": "LAB-GROWN DIAMONDS HAVE",
@@ -118,6 +120,22 @@
             "left_image_2": "shopify://shop_images/Vector_35.png",
             "left_text_2": "Same structure and hardness as a natural diamond",
             "left_text_3": ""
+          }
+        },
+        "media_block_DLywUT": {
+          "type": "media-block",
+          "settings": {
+            "desktop_image": "shopify://shop_images/ulquiorra-banner.gif",
+            "mobile_image": "shopify://shop_images/bleach-ichigo.gif",
+            "alt_text": ""
+          }
+        },
+        "media_block_QhFeGG": {
+          "type": "media-block",
+          "settings": {
+            "desktop_image": "shopify://shop_images/bleach-ichigo.gif",
+            "mobile_image": "shopify://shop_images/ulquiorra-banner.gif",
+            "alt_text": ""
           }
         }
       },
@@ -139,7 +157,9 @@
         "details_dropdown_P4zhGG",
         "se_wishlist_engine_product_page_fTBTnd",
         "product_info_image_eaCYxw",
-        "product_info_image_RdddYM"
+        "product_info_image_RdddYM",
+        "media_block_DLywUT",
+        "media_block_QhFeGG"
       ],
       "settings": {
         "enable_sticky_info": true,

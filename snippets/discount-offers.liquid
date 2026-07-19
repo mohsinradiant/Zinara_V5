@@ -73,7 +73,7 @@
       <div class="discount-offer-card__header">
         <svg class="discount-offer-card__badge" viewBox="0 0 24 24" aria-hidden="true">
           <path
-            fill="#17A34A"
+            fill="#712242"
             d="M12,2 L14.76,5.35 L19.07,4.93 L18.65,9.24 L22,12 L18.65,14.76 L19.07,19.07 L14.76,18.65 L12,22 L9.24,18.65 L4.93,19.07 L5.35,14.76 L2,12 L5.35,9.24 L4.93,4.93 L9.24,5.35 Z"
           />
           <text x="12" y="15.5" text-anchor="middle" font-size="9" font-weight="700" fill="#fff">%</text>
@@ -109,11 +109,6 @@
       {%- if offer.description != blank -%}
         <p class="discount-offer-card__description">{{ offer.description }}</p>
       {%- endif -%}
-
-      {%- if offer.cta_text != blank -%}
-        <a href="{{ offer.cta_url | default: '#' }}" class="discount-offer-card__cta">{{ offer.cta_text }}</a>
-      {%- endif -%}
-
       {%- if is_copyable -%}
         <div class="discount-offer-card__code">
           <span class="discount-offer-card__code-label">
@@ -126,6 +121,11 @@
           </span>
         </div>
       {%- endif -%}
+      {%- if offer.cta_text != blank -%}
+        <a href="{{ offer.cta_url | default: '#' }}" class="discount-offer-card__cta">{{ offer.cta_text }}</a>
+      {%- endif -%}
+
+
     </div>
   {%- endfor -%}
 {%- endcapture -%}
@@ -192,14 +192,14 @@
       flex-shrink: 0;
     }
     .discount-offer-card__heading {
-      font-size: 1.3rem;
+      font-size: 12px;
       font-weight: 600;
       line-height: 1.2;
     }
     .discount-offer-card__highlight {
-      color: #17a34a;
+      color: #712242;
       font-weight: 700;
-      font-size: 1.5rem;
+      font-size: 14px;
       margin: 0;
       line-height: 1.2;
     }
@@ -228,14 +228,14 @@
       align-items: center;
       align-self: flex-start;
       margin-top: auto;
-      border: 1px dashed #a6dfb8;
-      background: #eafaf0;
+      border: 1px dashed #71224277;
+      background: #7122420e;
       border-radius: 0.6rem;
       padding: 0.5rem 1rem;
       font-weight: 700;
       font-size: 1.2rem;
       letter-spacing: 0.05em;
-      color: #146c33;
+      color: #712242;
     }
     .discount-offer-card__code-label {
       display: inline-flex;
@@ -351,10 +351,13 @@
         }
 
         if (navigator.clipboard && window.isSecureContext) {
-          navigator.clipboard.writeText(code).then(showCopied).catch(function () {
-            fallbackCopy(code);
-            showCopied();
-          });
+          navigator.clipboard
+            .writeText(code)
+            .then(showCopied)
+            .catch(function () {
+              fallbackCopy(code);
+              showCopied();
+            });
         } else {
           fallbackCopy(code);
           showCopied();
