@@ -133,8 +133,8 @@
         "media_block_QhFeGG": {
           "type": "media-block",
           "settings": {
-            "desktop_image": "shopify://shop_images/Diamond_PDP.gif",
-            "mobile_image": "shopify://shop_images/Diamond_PDP.gif",
+            "desktop_image": "shopify://shop_images/diamond_static_pdp.png",
+            "mobile_image": "shopify://shop_images/diamond_static_pdp.png",
             "alt_text": ""
           }
         }
@@ -305,6 +305,7 @@
         "block_acUzEf",
         "block_RVANR4"
       ],
+      "disabled": true,
       "name": "Zinara Experience Strip",
       "settings": {
         "heading": "The Zinara Experience"
