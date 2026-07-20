@@ -305,6 +305,7 @@
         "block_acUzEf",
         "block_RVANR4"
       ],
+      "disabled": true,
       "name": "Zinara Experience Strip",
       "settings": {
         "heading": "The Zinara Experience"
@@ -544,7 +545,7 @@
           "settings": {
             "heading": "Do you deliver pan India?",
             "icon": "none",
-            "row_content": "<p>Currently, we deliver to select cities within India. To check if we deliver to your area, please enter your pincode or city on the product page. We apologize if delivery services are unavailable in your region. Be assured, we’re working to get our services in our city as well.</p>",
+            "row_content": "<p>Yes we deliver PAN India to 19000+ pincodes. To check if we deliver to your area, please enter your pincode or city on the product page. </p>",
             "page": ""
           }
         },
