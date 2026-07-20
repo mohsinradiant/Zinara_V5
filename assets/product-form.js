@@ -1,4 +1,44 @@
 if (!customElements.get('product-form')) {
+  const LOADING_SAFETY_TIMEOUT = 8000;
+
+  function showSubmitSpinner(submitButton) {
+    submitButton.classList.add('loading');
+    submitButton.querySelector('.loading__spinner')?.classList.remove('hidden');
+    clearTimeout(submitButton._loadingSafetyTimeout);
+    submitButton._loadingSafetyTimeout = setTimeout(() => hideSubmitSpinner(submitButton), LOADING_SAFETY_TIMEOUT);
+  }
+
+  function hideSubmitSpinner(submitButton) {
+    clearTimeout(submitButton._loadingSafetyTimeout);
+    submitButton.classList.remove('loading');
+    submitButton.querySelector('.loading__spinner')?.classList.add('hidden');
+  }
+
+  // Third-party cart/checkout apps (e.g. GoKwik's cart-slide-drawer embed) attach their
+  // own capture-phase click listener straight onto this submit button and call
+  // preventDefault, so the form's `submit` event never fires and ProductForm's own
+  // loading-state logic in onSubmitHandler never runs. A listener on `document` in the
+  // capture phase always runs before a listener on the button itself (capture goes
+  // document -> ... -> target before the target's own listeners fire), so this shows
+  // the spinner regardless of whether something else hijacks the click afterwards.
+  document.addEventListener(
+    'click',
+    (evt) => {
+      const submitButton = evt.target.closest('.product-form__submit');
+      if (!submitButton || submitButton.disabled || submitButton.getAttribute('aria-disabled') === 'true') return;
+      showSubmitSpinner(submitButton);
+    },
+    true
+  );
+
+  // Hide it again once whatever third-party cart UI opens/refreshes after its own
+  // add-to-cart call completes.
+  ['cart:refresh', 'cart:open', 'cart-drawer:open', 'sidecart:open', 'ajax-cart:open'].forEach((eventName) => {
+    document.addEventListener(eventName, () => {
+      document.querySelectorAll('.product-form__submit.loading').forEach(hideSubmitSpinner);
+    });
+  });
+
   customElements.define(
     'product-form',
     class ProductForm extends HTMLElement {
@@ -9,8 +49,6 @@ if (!customElements.get('product-form')) {
         this.variantIdInput.disabled = false;
         this.form.addEventListener('submit', this.onSubmitHandler.bind(this));
         this.cart = document.querySelector('cart-notification') || document.querySelector('cart-drawer');
-        this.submitButton = this.querySelector('[type="submit"]');
-        this.submitButtonText = this.submitButton.querySelector('span');
 
         if (document.querySelector('cart-drawer')) this.submitButton.setAttribute('aria-haspopup', 'dialog');
 
@@ -24,8 +62,7 @@ if (!customElements.get('product-form')) {
         this.handleErrorMessage();
 
         this.submitButton.setAttribute('aria-disabled', true);
-        this.submitButton.classList.add('loading');
-        this.querySelector('.loading__spinner').classList.remove('hidden');
+        showSubmitSpinner(this.submitButton);
 
         const config = fetchConfig('javascript');
         config.headers['X-Requested-With'] = 'XMLHttpRequest';
@@ -93,10 +130,9 @@ if (!customElements.get('product-form')) {
             console.error(e);
           })
           .finally(() => {
-            this.submitButton.classList.remove('loading');
+            hideSubmitSpinner(this.submitButton);
             if (this.cart && this.cart.classList.contains('is-empty')) this.cart.classList.remove('is-empty');
             if (!this.error) this.submitButton.removeAttribute('aria-disabled');
-            this.querySelector('.loading__spinner').classList.add('hidden');
           });
       }
 
@@ -127,6 +163,14 @@ if (!customElements.get('product-form')) {
 
       get variantIdInput() {
         return this.form.querySelector('[name=id]');
+      }
+
+      get submitButton() {
+        return this.querySelector('[type="submit"]');
+      }
+
+      get submitButtonText() {
+        return this.submitButton.querySelector('span');
       }
     }
   );
