@@ -304,9 +304,9 @@
           "type": "block",
           "settings": {
             "image": "shopify://shop_images/Vector_31.png",
-            "heading": "Try at home",
-            "mobile_heading": "Try at home",
-            "subheading": "We’re happy to help you with free virtual and in-home trials",
+            "heading": "5X Thicker 18KT Gold Plating",
+            "mobile_heading": "5X Thicker 18KT Gold Plating",
+            "subheading": "6 Layer 2.5 Micron thick gold vermeil on 925 sterling silver",
             "show_button": true
           }
         },
@@ -1364,7 +1364,7 @@
           "settings": {
             "heading": "Do you deliver pan India?",
             "icon": "none",
-            "row_content": "<p>Currently, we deliver to select cities within India. To check if we deliver to your area, please enter your pincode or city on the product page. We apologize if delivery services are unavailable in your region. Be assured, we’re working to get our services in our city as well.</p>",
+            "row_content": "<p>Yes we deliver PAN India across 19000+ pincodes. To check if we deliver to your area, please enter your pincode or city on the product page.</p>",
             "page": ""
           }
         },
