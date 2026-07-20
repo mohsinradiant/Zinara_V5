@@ -28,9 +28,8 @@
         },
         "platform_cLqy9p": {
           "type": "platform",
-          "disabled": true,
           "settings": {
-            "image": "shopify://shop_images/Div_h-5.png"
+            "image": "shopify://shop_images/eternz_logo_footer.png"
           }
         },
         "payment_j4fpd8": {
