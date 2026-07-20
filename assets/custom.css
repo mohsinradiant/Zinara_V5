@@ -582,11 +582,12 @@ product-info .price__container span {
 
 .pdp-brand-usps-container {
   display: flex;
-  justify-content: space-between;
-  align-items: start;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
   background: #f9f7f9;
-  padding: 15px 30px;
-  gap: 13px;
+  padding: 15px 15px;
+  gap: 10px 0;
 }
 
 .pdp-brand-usp-block {
@@ -594,23 +595,28 @@ product-info .price__container span {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  gap: 15px;
-  width: 25%;
+  gap: 10px;
+  flex: 1 1 0;
+  min-width: 0;
+  padding: 0 8px;
 }
 
 .pdp-brand-usp-block img {
-  height: auto;
-  width: 50%;
+  height: 32px;
+  width: 32px;
+  object-fit: contain;
+  flex-shrink: 0;
 }
 
 .pdp-brand-usps-container hr {
-  display: flex;
+  display: block;
   border: none;
-  height: 70px;
+  align-self: center;
+  height: 44px;
   width: 1px;
-  background: #00000050;
-  margin: auto 0;
-  padding: 0;
+  background: #00000030;
+  margin: 0;
+  flex-shrink: 0;
 }
 
 .pdp-brand-usp-text {
@@ -618,9 +624,10 @@ product-info .price__container span {
   color: #000;
   letter-spacing: 0;
   line-height: 1.2;
-  font-size: 1.2rem;
-  font-family: var(--font-heading-family);
+  font-size: 1.1rem;
+  font-family: 'Montserrat';
   margin: 0;
+  font-weight: 600;
 }
 
 .prices-container-subheading {
@@ -1027,6 +1034,8 @@ body.no-scroll {
 .product__info-container-price-container .card__rating-badge {
   position: static;
   margin-left: auto;
+  margin-top: -4px;
+  transform: translateY(-4px);
 }
 
 .price-breakdown-container {
@@ -1610,7 +1619,7 @@ sticky-header {
   }
 
   .pdp-brand-usp-text {
-    font-size: 1.2rem;
+    font-size: 1rem;
   }
 
   .pdp-brand-usps-container {
@@ -2213,6 +2222,10 @@ sticky-header {
     padding: 12px 24px;
     font-size: 12px;
   }
+
+  .product__info-container-price-container .card__rating-badge {
+    transform: translateY(-6px);
+  }
 }
 
 /* Product card rating badge */
@@ -2239,6 +2252,12 @@ sticky-header {
 .card__rating-badge-value {
   font-size: 1.2rem;
   font-weight: 600;
+  line-height: 1;
+  color: #712242;
+}
+
+.card__rating-badge-count {
+  font-size: 1rem;
   line-height: 1;
   color: #712242;
 }

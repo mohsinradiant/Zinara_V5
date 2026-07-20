@@ -148,6 +148,20 @@
   opacity: 0.6;
 }
 
+.product-page-details-bullet-list {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding-left: 18px;
+  list-style: disc;
+}
+
+.product-page-details-bullet-list_item {
+  font-size: 1.2rem !important;
+  font-weight: 500;
+  line-height: 2.9rem;
+}
+
 .collapsible {
   max-height: 0;
   overflow: hidden;

@@ -16,6 +16,7 @@
     max_discount_value  integer            optional, rupee cap on a percentage discount (e.g. 400)
     products            list of products      optional, restricts the card to these products
     collections         list of collections    optional, restricts the card to products in these collections
+    index               integer                optional, controls display order (ascending)
 
   An entry with both `products` and `collections` left empty is shown on every
   product. An entry with either field set is only shown when the current
@@ -30,7 +31,7 @@
     block   - the section block rendering this snippet (for settings + shopify_attributes)
     product - the product being viewed, used to filter which offers apply
 {% endcomment %}
-{%- assign offers = shop.metaobjects.discount_offer.values -%}
+{%- assign offers = shop.metaobjects.discount_offer.values | sort: 'index' -%}
 {%- capture offer_cards_html -%}
   {%- for offer in offers -%}
     {%- assign offer_products = offer.products.value -%}

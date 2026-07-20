@@ -133,6 +133,9 @@
                   {%- if product.metafields.reviews.rating.value != blank -%}
                     <div class="card__rating-badge" aria-hidden="true">
                       <span class="card__rating-badge-value">{{ product.metafields.reviews.rating.value }}</span>
+                      {%- if product.metafields.reviews.rating_count != blank -%}
+                        <span class="card__rating-badge-count">({{ product.metafields.reviews.rating_count }})</span>
+                      {%- endif -%}
                       <span class="card__rating-badge-star">&#9733;</span>
                     </div>
                   {%- endif -%}
@@ -982,22 +985,22 @@
                   <div class="pdp-brand-usps-container">
                     <div class="pdp-brand-usp-block">
                       <img src="https://cdn.shopify.com/s/files/1/0661/8336/4792/files/Layer_2.png?v=1765186965">
-                      <p class="pdp-brand-usp-text">7 day free returns</p>
+                      <p class="pdp-brand-usp-text">7 Day Free Returns</p>
                     </div>
                     <hr>
                     <div class="pdp-brand-usp-block">
                       <img src="https://cdn.shopify.com/s/files/1/0661/8336/4792/files/1_145e8f48-cec2-426d-8a9f-0b78adce7aa6.png?v=1765186971">
-                      <p class="pdp-brand-usp-text">SGL certified diamonds</p>
+                      <p class="pdp-brand-usp-text">SGL Certified Diamonds</p>
                     </div>
                     <hr>
                     <div class="pdp-brand-usp-block">
                       <img src="https://cdn.shopify.com/s/files/1/0661/8336/4792/files/Layer_3.png?v=1765186965">
-                      <p class="pdp-brand-usp-text">Lifetime free replating service</p>
+                      <p class="pdp-brand-usp-text">Lifetime Free Replating</p>
                     </div>
                     <hr>
                     <div class="pdp-brand-usp-block">
                       <img src="https://cdn.shopify.com/s/files/1/0661/8336/4792/files/Layer_1.png?v=1765186965">
-                      <p class="pdp-brand-usp-text">Lifetime Buyback and Exchange</p>
+                      <p class="pdp-brand-usp-text">Buyback and Exchange</p>
                     </div>
                   </div>
                 {% endif %}
@@ -1093,7 +1096,7 @@
                     <div class="product-page-details-parent">
                       <div class="product-page-details-parent-child product-page-details-parent-child_1">
                         <div class="product-page-details-list_header">
-                          <p class="product-page-details-list_heading_1">METAL INFO</p>
+                          <p class="product-page-details-list_heading_1">PRODUCT DETAILS</p>
                           <img
                             src="https://cdn.shopify.com/s/files/1/0661/8336/4792/files/Vector_33.png?v=1754303698"
                             alt="Dropdown Icon"
@@ -1116,7 +1119,7 @@
                       </div>
                       <div class="product-page-details-parent-child product-page-details-parent-child_2">
                         <div class="product-page-details-list_header">
-                          <p class="product-page-details-list_heading_1">STONE INFO</p>
+                          <p class="product-page-details-list_heading_1">Why You’ll Love it</p>
                           <img
                             src="https://cdn.shopify.com/s/files/1/0661/8336/4792/files/Vector_33.png?v=1754303698"
                             alt="Dropdown Icon"
@@ -1124,17 +1127,12 @@
                           >
                         </div>
                         <div class="product-page-details-list_body collapsible">
-                          {% for list_2 in product.selected_or_first_available_variant.metafields.content.product_details_list_2_json.value %}
-                            <div class="product-page-details-list-container">
-                              <p class="product-page-details-list_heading">{{ list_2.heading }}</p>
-                              {% for list_item_2 in list_2.items %}
-                                <div class="product-page-details-list-parent">
-                                  <p class="product-page-details-list_title">{{ list_item_2.label }}</p>
-                                  <p class="product-page-details-list_content">{{ list_item_2.value }}</p>
-                                </div>
-                              {% endfor %}
-                            </div>
-                          {% endfor %}
+                          {% assign why_love_it_entries = shop.metaobjects.why_you_ll_love_it_pdp.values | sort: 'index' %}
+                          <ul class="product-page-details-bullet-list">
+                            {% for entry in why_love_it_entries %}
+                              <li class="product-page-details-bullet-list_item">{{ entry.bullet }}</li>
+                            {% endfor %}
+                          </ul>
                         </div>
                       </div>
                       {% comment %}
@@ -1167,7 +1165,7 @@
                       {% endcomment %}
                       <div class="product-page-details-parent-child product-page-details-parent-child_1">
                         <div class="product-page-details-list_header">
-                          <p class="product-page-details-list_heading_1">PRODUCT INFO</p>
+                          <p class="product-page-details-list_heading_1">PRODUCT dESCRIPTION</p>
                           <img
                             src="https://cdn.shopify.com/s/files/1/0661/8336/4792/files/Vector_33.png?v=1754303698"
                             alt="Dropdown Icon"
