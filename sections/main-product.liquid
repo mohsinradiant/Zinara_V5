@@ -1621,6 +1621,7 @@
                 width: 100%;
                 background-color: #f2eeeb;
                 padding: 15px;
+                padding-bottom: calc(15px + env(safe-area-inset-bottom, 0px));
                 gap: 10px;
                 align-items: center;
                 justify-content: center;
@@ -1838,6 +1839,45 @@
     } else {
       syncStickyForm();
     }
+  })();
+
+  // iOS Safari/Chrome animate the address bar in and out of the "layout
+  // viewport" without resizing it in sync, so a `position: fixed; bottom: 0`
+  // element (whose containing block is the layout viewport) briefly sits
+  // above the true bottom of the visible screen while that animation runs,
+  // showing a blank gap underneath the bar. The visualViewport API reports
+  // the actual visible area in real time, so we measure the gap and pull the
+  // bar down to close it. Android isn't affected and visualViewport is a
+  // no-op there (offset stays 0), so this only changes iOS behaviour.
+  (function () {
+    var stickyBar = document.querySelector('.sticky-atc-container');
+    if (!stickyBar || !window.visualViewport) return;
+
+    var ticking = false;
+
+    function applyOffset() {
+      ticking = false;
+      var vv = window.visualViewport;
+      // During the toolbar hide/show animation the visual viewport (real,
+      // currently-rendered visible area) updates ahead of the CSS layout
+      // viewport that `bottom: 0` is anchored to. When the visible area has
+      // grown past what layout currently accounts for, push the bar down by
+      // the difference so its bottom edge tracks the true screen edge
+      // instead of leaving a gap below it.
+      var gap = vv.height + vv.offsetTop - window.innerHeight;
+      stickyBar.style.transform = gap > 0 ? 'translateY(' + gap + 'px)' : '';
+    }
+
+    function requestApply() {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(applyOffset);
+    }
+
+    window.visualViewport.addEventListener('resize', requestApply);
+    window.visualViewport.addEventListener('scroll', requestApply);
+    window.addEventListener('orientationchange', requestApply);
+    applyOffset();
   })();
 </script>
 <!-- Try at Home Pincode Checker Popup -->
