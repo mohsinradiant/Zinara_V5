@@ -269,13 +269,13 @@
     "zinara_experience_strip_GDHYPh": {
       "type": "zinara_experience_strip",
       "blocks": {
-        "block_Kmhdkd": {
+        "block_tFHwqD": {
           "type": "block",
           "settings": {
-            "image": "shopify://shop_images/Vector_28.png",
-            "heading": "Lifetime buyback & exchange",
-            "mobile_heading": "Lifetime Buyback & Exchange",
-            "subheading": "We offer lifetime buyback and exchange on all Zinara orders",
+            "image": "shopify://shop_images/layer_plating.png",
+            "heading": "5X Thicker 18KT Gold Plating",
+            "mobile_heading": "5X Thicker 18KT Gold Plating",
+            "subheading": "6 Layer 2.5 Micron thick gold vermeil on 925 sterling silver",
             "show_button": true
           }
         },
@@ -286,6 +286,16 @@
             "heading": "SGL certified diamonds",
             "mobile_heading": "SGL certified diamonds",
             "subheading": "All our grown diamonds are SGL certified ensuring top quality",
+            "show_button": true
+          }
+        },
+        "block_Kmhdkd": {
+          "type": "block",
+          "settings": {
+            "image": "shopify://shop_images/Vector_28.png",
+            "heading": "Lifetime buyback & exchange",
+            "mobile_heading": "Lifetime Buyback & Exchange",
+            "subheading": "We offer lifetime buyback and exchange on all Zinara orders",
             "show_button": true
           }
         },
@@ -300,16 +310,6 @@
             "show_button": false
           }
         },
-        "block_tFHwqD": {
-          "type": "block",
-          "settings": {
-            "image": "shopify://shop_images/layer_plating.png",
-            "heading": "5X Thicker 18KT Gold Plating",
-            "mobile_heading": "5X Thicker 18KT Gold Plating",
-            "subheading": "6 Layer 2.5 Micron thick gold vermeil on 925 sterling silver",
-            "show_button": true
-          }
-        },
         "block_ddpqQk": {
           "type": "block",
           "settings": {
@@ -322,10 +322,10 @@
         }
       },
       "block_order": [
-        "block_Kmhdkd",
-        "block_rHr3fm",
-        "block_PKMGPR",
         "block_tFHwqD",
+        "block_rHr3fm",
+        "block_Kmhdkd",
+        "block_PKMGPR",
         "block_ddpqQk"
       ],
       "name": "Zinara Experience Strip",
