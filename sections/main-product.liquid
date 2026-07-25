@@ -1303,6 +1303,13 @@
 
                     // ✅ Correct dataset selection — uses product tags, not variant options
                     const productTags = {{ product.tags | json }};
+
+                    // ✅ Selected variant stock status (re-rendered per variant change)
+                    {% assign selected_variant_is_in_stock = true %}
+                    {% if product.selected_or_first_available_variant.inventory_management == 'shopify' and product.selected_or_first_available_variant.inventory_quantity <= 0 %}
+                      {% assign selected_variant_is_in_stock = false %}
+                    {% endif %}
+                    const isVariantInStock = {{ selected_variant_is_in_stock | json }};
                     function getCurrentSet() {
                       const tags = productTags.map(t => t.toLowerCase());
 
@@ -1317,10 +1324,11 @@
                       return validPincodesGold;
                     }
 
-                    // ✅ Delivery date (constant 3 days)
-                    function getDeliveryDate() {
+                    // ✅ Delivery date: 3 days if selected variant is in stock, 17 days if out of stock
+                    function getDeliveryDate(inStock) {
+                      const deliveryDays = inStock ? 3 : 17;
                       const today = new Date();
-                      today.setDate(today.getDate() + 3);
+                      today.setDate(today.getDate() + deliveryDays);
 
                       return today.toLocaleDateString('en-US', {
                         day: 'numeric',
@@ -1368,7 +1376,7 @@
                         return;
                       }
 
-                      const finalDate = getDeliveryDate();
+                      const finalDate = getDeliveryDate(isVariantInStock);
 
                       res.textContent = 'Available';
                       res.className = 'pincode-checker-result available';
