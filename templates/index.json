@@ -14,11 +14,10 @@
       "blocks": {
         "slide_aDn7ip": {
           "type": "slide",
-          "disabled": true,
           "settings": {
-            "image": "shopify://shop_images/rakhi_desktop_banner.png",
+            "image": "shopify://shop_images/rakhi_mobile.png",
             "image_alt": "",
-            "image_mobile": "shopify://shop_images/rakhi_mobile_banner.png",
+            "image_mobile": "shopify://shop_images/rakhi_mobile.png",
             "image_mobile_alt": "",
             "image_aspect_ratio": true,
             "heading": "Image slide",
