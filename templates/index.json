@@ -14,6 +14,7 @@
       "blocks": {
         "slide_aDn7ip": {
           "type": "slide",
+          "disabled": true,
           "settings": {
             "image": "shopify://shop_images/rakhi_desktop_banner.png",
             "image_alt": "",
